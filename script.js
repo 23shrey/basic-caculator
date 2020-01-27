@@ -33,7 +33,8 @@ const operators= document.querySelectorAll(".operator")
 operators.forEach((operator) => {
   operator.addEventListener("click",(event) =>{
   inputOperator(event.target.value);
-  });
+    updateScreen(calculationOperator);
+ });
 });
 
 const inputOperator=(operator)=> {
@@ -64,6 +65,11 @@ const calculate =()=> {
    case `/`:
       result=parseInt(prevInput) / parseInt(currentInput);
       break;
+    case `%`:
+      result=parseInt(prevInput) % parseInt(currentInput);
+      break;
+
+
       default:
       return;
 
@@ -71,8 +77,33 @@ const calculate =()=> {
  }
  currentInput=result.toString();
  calculationOperator="";
+}
+
+const clear =document.querySelector(`.backspace`);
+
+clear.addEventListener (`click`,()=>{
+  backsp();
+  updateScreen(currentInput);
+})
+
+const backsp=() => {
+  "calculatorScreen.value =calculatorScreen.value.substr(0, calculatorScreen.value.length -1)";
+ if(calculatorScreen.value !=0) {
+   prevInput=`currentInput`;
+   currentInput=`  `;
+   calculationOperator="";
+ }else {
+   prevInput=`0`;
+   calculationOperator="";
+   currentInput=`0`;
+ }
 
 }
+
+
+
+
+
 const clearBtn=document.querySelector(`.all-clear`);
 
 clearBtn.addEventListener (`click`,()=>{
